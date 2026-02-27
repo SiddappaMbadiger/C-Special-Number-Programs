@@ -1,29 +1,21 @@
-// Program to check if n is Catalan number or not?
-
-#include<stdio.h>
-#include<math.h>
-// Function to calculate the nth Catalan number using dynamic programming
-unsigned long long catalan(int n) {
-    unsigned long long catalan[n + 1];
-    catalan[0] = 1; // C(0) is 1
-
-    for (int i = 1; i <= n; i++) {
-        catalan[i] = 0;
-        for (int j = 0; j < i; j++) {
-            catalan[i] += catalan[j] * catalan[i - 1 - j]; // C(n) = sum of C(i)*C(n-1-i) for i=0 to n-1
-        }
-    }
-
-    return catalan[n];
-}
+// Program to check whether a number is a Catalan number or not
+#include <stdio.h>
 int main() {
-    int n;
+    int n, i = 0, catalan = 1;
 
     printf("Enter a number: ");
     scanf("%d", &n);
 
-    unsigned long long result = catalan(n);
-    printf("%d is the %dth Catalan number.\n", result, n);
+    while (catalan < n) {
+        i++;
+        catalan = (2 * (2 * i - 1) * catalan) / (i + 1);
+    }
+
+    if (catalan == n) {
+        printf("%d is a Catalan number.\n", n);
+    } else {
+        printf("%d is not a Catalan number.\n", n);
+    }
 
     return 0;
 }
